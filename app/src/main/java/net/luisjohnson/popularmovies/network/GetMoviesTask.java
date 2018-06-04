@@ -21,6 +21,16 @@ public class GetMoviesTask extends AsyncTask <String, Void, Movie[] > {
 
     final static int MAX_NUMBER_OF_PAGES = 20;
 
+    public AsyncResponse response = null;
+
+    public GetMoviesTask(AsyncResponse response) {
+        this.response = response;
+    }
+
+    public interface AsyncResponse {
+        void returnResponse(Movie[] movies);
+    }
+
     @Override
     protected Movie[] doInBackground(String... paths) {
 
@@ -47,7 +57,7 @@ public class GetMoviesTask extends AsyncTask <String, Void, Movie[] > {
 
     @Override
     protected void onPostExecute(Movie[] movies) {
-        super.onPostExecute(movies);
+        response.returnResponse(movies);
     }
 
 
