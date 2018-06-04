@@ -1,7 +1,7 @@
 package net.luisjohnson.popularmovies.data;
 
 import android.net.Uri;
-
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -10,7 +10,7 @@ public class Movie {
     public Movie() {
     }
 
-    private final String POSTER_SIZE = "w500";
+    private final String POSTER_SIZE = "w200";
     private final String POSTER_BASE_URL = "https://image.tmdb.org/t/p";
 
     private int voteCount;
@@ -53,18 +53,23 @@ public class Movie {
         this.popularity = popularity;
     }
 
-    public URL getPosterPath() throws MalformedURLException {
-        Uri builtUri = Uri.parse(POSTER_BASE_URL).buildUpon()
+    public URL getPosterPath() throws MalformedURLException, UnsupportedEncodingException {
+
+        //String path = URLEncoder.encode(posterPath, "utf-8");
+
+        String builtUri = Uri.parse(POSTER_BASE_URL).buildUpon()
                 .appendPath(POSTER_SIZE)
                 .appendPath(posterPath)
-                .build();
-        URL url = new URL(builtUri.toString());
+                .build().toString();
+
+        URL url = new URL(builtUri);
 
         return url;
     }
 
     public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+        //Remove the first character.
+        this.posterPath = posterPath.substring(1);
     }
 
     public String getOverview() {

@@ -30,13 +30,11 @@ public class GetMoviesTask extends AsyncTask <String, Void, Movie[] > {
         for(int i = 1; i <= MAX_NUMBER_OF_PAGES; i++ ){
             try {
                 URL url = NetworkUtils.buildURL(path, i);
-                //Log.v(TAG, url.toString());
                 String JSONData = NetworkUtils.getHTTPDataFromURL(url);
                 JSONObject jsonObject = new JSONObject(JSONData);
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
                 for(int j = 0; j < jsonArray.length(); j++ ) {
                     Movie movie =  JSONUtils.getMoviesFromJSONData(jsonArray.getJSONObject(j));
-                    Log.v(TAG,movie.getTitle());
                     list.add(movie);
                 }
             } catch (IOException | JSONException | ParseException e) {
