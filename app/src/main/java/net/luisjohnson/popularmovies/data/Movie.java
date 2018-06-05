@@ -53,7 +53,7 @@ public class Movie {
         this.popularity = popularity;
     }
 
-    public URL getPosterPath() throws MalformedURLException, UnsupportedEncodingException {
+    public URL getPosterPath()  {
 
         //String path = URLEncoder.encode(posterPath, "utf-8");
 
@@ -62,7 +62,12 @@ public class Movie {
                 .appendPath(posterPath)
                 .build().toString();
 
-        URL url = new URL(builtUri);
+        URL url = null;
+        try {
+            url = new URL(builtUri);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
         return url;
     }
