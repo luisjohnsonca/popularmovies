@@ -18,8 +18,9 @@ import java.util.List;
 public class GetMoviesTask extends AsyncTask <String, Void, Movie[] > {
 
     private final static String TAG = GetMoviesTask.class.getSimpleName();
+    public final static String JSON_ARRAY_KEY = "results";
 
-    final static int MAX_NUMBER_OF_PAGES = 20;
+    final static int MAX_NUMBER_OF_PAGES = 40;
 
     public AsyncResponse response = null;
 
@@ -40,14 +41,15 @@ public class GetMoviesTask extends AsyncTask <String, Void, Movie[] > {
         for(int i = 1; i <= MAX_NUMBER_OF_PAGES; i++ ){
             try {
                 URL url = NetworkUtils.buildURL(path, i);
+                Log.v(TAG, url.toString());
                 String JSONData = NetworkUtils.getHTTPDataFromURL(url);
                 JSONObject jsonObject = new JSONObject(JSONData);
-                JSONArray jsonArray = jsonObject.getJSONArray("results");
+                JSONArray jsonArray = jsonObject.getJSONArray(JSON_ARRAY_KEY);
                 for(int j = 0; j < jsonArray.length(); j++ ) {
                     Movie movie =  JSONUtils.getMoviesFromJSONData(jsonArray.getJSONObject(j));
                     list.add(movie);
                 }
-            } catch (IOException | JSONException | ParseException e) {
+            } catch (IOException | JSONException | ParseException | NullPointerException e) {
                 Log.e(TAG, e.getMessage());
             }
         }

@@ -10,18 +10,30 @@ import java.util.Date;
 
 public class JSONUtils {
 
+    //JSON Keys declaration
+    public static final String TITLE = "title";
+    public static final String OVERVIEW = "overview";
+    public static final String POPULARITY = "popularity";
+    public static final String POSTER_PATH = "poster_path";
+    public static final String VOTE_AVERAGE = "vote_average";
+    public static final String VOTE_COUNT = "vote_count";
+    public static final String RELEASE_DATE = "release_date";
+
     public static Movie getMoviesFromJSONData( JSONObject jsonObject) throws JSONException, ParseException{
+
+
+
 
         Movie movie = new Movie();
 
-        movie.setTitle(jsonObject.getString("title"));
-        movie.setOverview(jsonObject.getString("overview"));
-        movie.setPopularity(jsonObject.getDouble("popularity"));
-        movie.setPosterPath(jsonObject.getString("poster_path"));
-        movie.setVoteAverage(jsonObject.getDouble("vote_average"));
-        movie.setVoteCount(jsonObject.getInt("vote_count"));
+        movie.setTitle(jsonObject.optString(TITLE));
+        movie.setOverview(jsonObject.optString(OVERVIEW));
+        movie.setPopularity(jsonObject.optDouble(POPULARITY));
+        movie.setPosterPath(jsonObject.optString(POSTER_PATH));
+        movie.setVoteAverage(jsonObject.optDouble(VOTE_AVERAGE));
+        movie.setVoteCount(jsonObject.optInt(VOTE_COUNT));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = format.parse(jsonObject.getString("release_date"));
+        Date date = format.parse(jsonObject.optString(RELEASE_DATE));
 
         return movie;
     }
