@@ -20,7 +20,7 @@ public class GetMoviesTask extends AsyncTask <String, Void, Movie[] > {
     private final static String TAG = GetMoviesTask.class.getSimpleName();
     public final static String JSON_ARRAY_KEY = "results";
 
-    final static int MAX_NUMBER_OF_PAGES = 40;
+    final static int MAX_NUMBER_OF_PAGES = 10;
 
     public AsyncResponse response = null;
 
