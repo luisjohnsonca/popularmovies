@@ -12,7 +12,8 @@ import net.luisjohnson.popularmovies.data.Movie;
 import net.luisjohnson.popularmovies.data.MovieAdapter;
 import net.luisjohnson.popularmovies.network.GetMoviesTask;
 
-public class MainActivity extends AppCompatActivity implements GetMoviesTask.AsyncResponse {
+public class MainActivity extends AppCompatActivity
+        implements GetMoviesTask.AsyncResponse, MovieAdapter.CellItemClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String POPULAR_PATH = "popular";
@@ -61,7 +62,14 @@ public class MainActivity extends AppCompatActivity implements GetMoviesTask.Asy
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_movie);
         int numberOfColumns = 4;
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        adapter = new MovieAdapter(this,movies);
+        adapter = new MovieAdapter(this,movies,this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onCellItemClick(int index) {
+
+        Log.v(TAG, "Position " + index + " clicked.");
+
     }
 }

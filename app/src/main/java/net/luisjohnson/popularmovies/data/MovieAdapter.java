@@ -19,12 +19,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     private Movie[] data;
     LayoutInflater inflater;
 
+    final private CellItemClickListener listener;
 
-    public MovieAdapter(Context context, Movie[] movies) {
+
+
+
+
+    public MovieAdapter(Context context, Movie[] movies, CellItemClickListener listener) {
         inflater = LayoutInflater.from(context);
         data = movies;
+        this.listener = listener;
     }
 
+    public interface CellItemClickListener {
+        void onCellItemClick(int index);
+    }
 
 
     @NonNull
@@ -59,13 +68,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return data.length;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder
+                            implements View.OnClickListener {
 
         ImageView posterIv;
 
         public ViewHolder(View itemView) {
             super(itemView);
             posterIv = (ImageView) itemView.findViewById(R.id.movie_poster);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            listener.onCellItemClick(position);
         }
     }
 
