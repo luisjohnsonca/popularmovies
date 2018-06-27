@@ -1,12 +1,14 @@
 package net.luisjohnson.popularmovies.data;
 
 import android.net.Uri;
+
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
-public class Movie {
+public class Movie implements Serializable {
     public Movie() {
     }
 

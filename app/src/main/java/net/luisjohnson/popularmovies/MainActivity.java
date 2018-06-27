@@ -1,5 +1,6 @@
 package net.luisjohnson.popularmovies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
 
     MovieAdapter adapter;
     GetMoviesTask task;
+    Movie[] mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +66,23 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         adapter = new MovieAdapter(this,movies,this);
         recyclerView.setAdapter(adapter);
+        mData = movies;
     }
 
     @Override
     public void onCellItemClick(int index) {
 
         Log.v(TAG, "Position " + index + " clicked.");
+
+        Movie movie = mData[index];
+
+        Intent intent = new Intent(this,MovieDetailsActivity.class);
+
+        intent.putExtra("movie", movie);
+
+        startActivity(intent);
+
+
 
     }
 }
